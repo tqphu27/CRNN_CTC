@@ -7,6 +7,7 @@ import cv2
 import pandas as pd
 import tensorflow as tf
 from tqdm import tqdm
+from sklearn.model_selection import train_test_split
 
 import config
 
@@ -181,6 +182,7 @@ def main():
     if test_size < 1:
         test_size = test_size * len(df_label)
     test_size = int(test_size)
+    # df_label_train, df_label_test = train_test_split(df_label, test_size=test_size,random_state=42, shuffle=True)
     df_label_test = df_label.iloc[-test_size:, :]
     df_label_train = df_label.iloc[:-test_size, :]
 
@@ -193,7 +195,7 @@ def main():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default="GPLX")
+    parser.add_argument('--data', type=str, default="BIRTH")
     parser.add_argument('--cfg', type=str, default="config.json")
 
     args = parser.parse_args()

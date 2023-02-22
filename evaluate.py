@@ -7,7 +7,7 @@ from tensorflow import keras
 from data_provider_tfrecord import get_data
 from itertools import chain
 from asrtoolkit import cer, wer
-
+from matplotlib import pyplot as plt
 
 def load_model(path):
     model = keras.models.load_model(path)
@@ -88,7 +88,7 @@ def load_model_from_dataset(dataset):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data", type=str, default="VietcomBank")
+    parser.add_argument("--data", type=str, default="BIRTH")
     parser.add_argument("--cfg", type=str, default="config.json")
     args = parser.parse_args()
     if args.cfg != 'config.json':
@@ -100,9 +100,20 @@ if __name__ == "__main__":
     dataset = get_data('test')
     img, lb, predict = load_model_from_dataset(dataset)
     lb = list(chain.from_iterable(lb))
+    img = list(chain.from_iterable(img))
     predict = list(chain.from_iterable(predict))
     acc_w = eval_model_words(lb, predict)
     acc_c = eval_model_character(lb, predict)
+
+    # dict = []
+    for i in range(len(predict)):
+        if lb[i]!=predict[i]:
+            print(f"label: {lb[i]}\n predict: {predict[i]}\n")
+            plt.imshow(img[i])
+            plt.title(f"label: {lb[i]}\t predict: {predict[i]}")
+            plt.show()
+            
+    
     print(f"label: {lb}\n predict: {predict}\n {len(lb)}")
     print(f"Accuracy words: {acc_w}%")
     print(f"Accuracy character: {acc_c}%")

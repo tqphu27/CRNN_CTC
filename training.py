@@ -68,7 +68,7 @@ def run():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='GPLX')
+    parser.add_argument('--data', type=str, default='BIRTH')
     parser.add_argument('--cfg', type=str, default="config.json")
 
     args = parser.parse_args()

@@ -31,7 +31,7 @@ class CnnConfig:
 
 class RnnConfig:
     input_depth = 64
-    input_dropout = 0.2
+    input_dropout = 0.25
     layers = [
         {'units': 128, 'dropout': 0.25},
         {'units': 64, 'dropout': 0.25}
@@ -43,7 +43,7 @@ class HeadConfig:
 
 
 class TrainingConfig:
-    augment_data = False
+    augment_data = True
     optimizer = 'adam'
     learning_rate = 0.001
     epochs = 10
